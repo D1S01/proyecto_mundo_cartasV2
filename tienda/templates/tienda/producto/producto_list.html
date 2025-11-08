@@ -46,6 +46,7 @@
                 <a href="{% url 'producto-delete' producto.id %}" class="btn btn-danger">Eliminar</a>
                 {% endcomment %}
                 <a href="" class="btn btn-warning">añadir</a>
+                <a href="{% url 'producto-detail' producto.id %}" class="btn btn-primary">Ver detalles</a>
             </div>
         </div>  
     {% empty %}
