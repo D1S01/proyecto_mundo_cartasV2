@@ -28,12 +28,21 @@
         <hr>
         
         <ul class="nav nav-pills flex-column mb-auto">
+          
             {% if request.user.is_authenticated %}
                 <li><a class="nav-link text-white" href="#">Inicio</a></li>
-                <li><a class="nav-link text-white" href="{% url 'inventario-list' %}">Inventario</a></li>
-                <li><a class="nav-link text-white" href="{% url 'producto-list' %}">Punto de venta</a></li>
-                <li><a class="nav-link text-white" href="{% url 'producto-list' %}">Reportes</a></li>
-                <li><a class="nav-link text-white" href="{% url 'usuario-list' %}">Usuarios</a></li>
+                <li>
+                  <a class="nav-link text-white {% if request.resolver_match.url_name == "inventario-list" %} link-activo {% endif %}" href="{% url 'inventario-list' %}">Inventario</a>
+                </li>
+                <li>
+                  <a class="nav-link text-white {% if request.resolver_match.url_name == "producto-list" %} link-activo {% endif %}" href="{% url 'producto-list' %}">Punto de venta</a>
+                </li>
+                <li>
+                  <a class="nav-link text-white {% if request.resolver_match.url_name == "producto-list" %} link-activo {% endif %}" href="{% url 'producto-list' %}">Reportes</a>
+                </li>
+                <li>
+                  <a class="nav-link text-white {% if request.resolver_match.url_name == "usuario-list" %} link-activo {% endif %}" href="{% url 'usuario-list' %}">Usuarios</a>
+                </li>
             {% endif %}
         </ul>
         
@@ -44,6 +53,13 @@
             <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
         {% endif %}
     </div>
+    {% comment %} {% else %}
+    
+    <div class="header-login">
+        <img src="{% static 'img/mundocartas.png' %}" alt="Logo" style="width:80px;">
+        <h2>Login</h2>
+    </div> {% endcomment %}
+
     {% endif %}
     <div class="container-fluid p-4">
         {% block content %}
@@ -54,7 +70,7 @@
 </main>
 
    
-    </main>
+    {% comment %} </main> {% endcomment %}
 
     <!-- Bootstrap -->
     {% comment %} <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script> {% endcomment %}

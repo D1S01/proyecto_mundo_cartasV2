@@ -126,3 +126,24 @@ img{
     border-radius: 50%;
     object-fit: cover;
 }
+
+/* para iluminar los anchors */
+
+/* li a.nav-link:hover {
+    background-color: red;
+} */
+
+.nav-link:hover {
+    background-color: #2343C3;
+    /* color: lime; */
+    /* border-radius: 8px; */
+}
+
+.nav-link.active{
+    background-color: #2343C3 !important;
+    color: white !important;
+}
+
+.link-activo{
+    background-color: #2343C3;
+}
