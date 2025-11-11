@@ -30,10 +30,14 @@
         <ul class="nav nav-pills flex-column mb-auto">
             {% if request.user.is_authenticated %}
                 <li><a class="nav-link text-white" href="#">Inicio</a></li>
+                {% if user.usuario.rol.nombre == 'Administrador' %}
                 <li><a class="nav-link text-white" href="{% url 'inventario-list' %}">Inventario</a></li>
+                {% endif %}
                 <li><a class="nav-link text-white" href="{% url 'producto-list' %}">Punto de venta</a></li>
+                {% if user.usuario.rol.nombre == 'Administrador' %}
                 <li><a class="nav-link text-white" href="{% url 'producto-list' %}">Reportes</a></li>
                 <li><a class="nav-link text-white" href="{% url 'usuario-list' %}">Usuarios</a></li>
+                {% endif %}
             {% endif %}
         </ul>
         

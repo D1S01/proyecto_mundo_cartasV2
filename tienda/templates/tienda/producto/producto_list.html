@@ -6,8 +6,22 @@
 
 
 <form method="get" action="{% url 'buscar-producto' %}">
-    <input type="text" name="buscar" value="{{ query }}" placeholder="Buscar producto...">
+    <!-- Búsqueda por texto -->
+    <input type="text" name="buscar" value="{{ query }}" placeholder="Buscar por nombre...">
+    
+    <!-- Filtro por categoría -->
+    <select name="categoria" onchange="this.form.submit()">
+        <option value="">Todas las categorías</option>
+        {% for categoria in categorias %}
+        <option value="{{ categoria.id }}" 
+                {% if categoria_seleccionada == categoria.id|stringformat:"s" %}selected{% endif %}>
+            {{ categoria.nombre }}
+        </option>
+        {% endfor %}
+    </select>
+    
     <button type="submit">Buscar</button>
+    <a href="{% url 'buscar-producto' %}">Limpiar</a>
 </form>
 
 <div class="d-flex">
@@ -45,7 +59,7 @@
                 <a href="{% url 'producto-update' producto.id %}" class="btn btn-warning">Editar</a>
                 <a href="{% url 'producto-delete' producto.id %}" class="btn btn-danger">Eliminar</a>
                 {% endcomment %}
-                <a href="" class="btn btn-warning">añadir</a>
+                 
             </div>
         </div>  
     {% empty %}

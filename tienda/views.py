@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Producto, Categoria, Inventario
+from .models import Producto, Categoria, Inventario, Venta, Detalle_venta
 from .forms import ProductoForm, CategoriaForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
+from usuarios.models import Usuario
 
 # Create your views here.
 
@@ -72,14 +73,14 @@ def CategoriaDeleteView(request, id):
     return render(request, 'tienda/categoria/categoria_delete.html')
 
 
-def buscar_producto(request):
+"""def buscar_producto(request):
     query = request.GET.get('buscar', '').strip()
     productos = Producto.objects.filter(nombre__icontains=query) if query else Producto.objects.all()
     return render(request, 'tienda/producto/producto_list.html', {
         'productos': productos,
         'query': query
     })
-
+"""
 def buscar_inventario(request):
     query = request.GET.get('buscar', '').strip()
     productos = Producto.objects.filter(nombre__icontains=query) if query else Producto.objects.all()
@@ -87,3 +88,28 @@ def buscar_inventario(request):
         'productos': productos,
         'query': query
     })
+
+def buscar_producto(request):
+    query = request.GET.get('buscar', '')
+    categoria_id = request.GET.get('categoria', '')
+    
+    productos = Producto.objects.all()
+    
+    # Solo busca por nombre si hay query
+    if query:
+        productos = productos.filter(nombre__icontains=query)
+    
+    # Solo filtra por categoría si se seleccionó una
+    if categoria_id:
+        productos = productos.filter(categoria__id=categoria_id)
+    
+    categorias = Categoria.objects.all()
+    
+    return render(request, 'tienda/producto/producto_list.html', {
+        'productos': productos,
+        'categorias': categorias,
+        'query': query,
+        'categoria_seleccionada': categoria_id
+    })
+
+
